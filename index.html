@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda de Ropa</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">TIENDA ROPA</div>
+  <nav class="menu">
+    <button id="showTable">Productos</button>
+    <button id="showForm">Agregar</button>
+    <button id="showScan">Consulta</button>
+  </nav>
+</header>
+
+<main>
+  <section id="tableSection" class="hidden">
+    <h2>Lista de Productos</h2>
+    <div class="table-container">
+      <table id="productTable">
+        <thead>
+          <tr>
+            <th>Código</th><th>Nombre</th><th>Tipo</th><th>Talle</th><th>Precio</th><th>Descripción</th><th>Stock</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="formSection" class="hidden">
+    <h2>Agregar / Editar Producto</h2>
+    <form id="productForm">
+      <input type="text" name="CodigoBarra" placeholder="Código de Barra" required />
+      <input type="text" name="Nombre" placeholder="Nombre" required />
+      <input type="text" name="Tipo" placeholder="Tipo" required />
+      <input type="text" name="Talle" placeholder="Talle" required />
+      <input type="number" name="Precio" placeholder="Precio" required />
+      <input type="text" name="Descripcion" placeholder="Descripción" />
+      <input type="number" name="Stock" placeholder="Stock" required />
+      <button type="submit">Guardar</button>
+    </form>
+  </section>
+
+  <section id="scanSection" class="hidden">
+    <h2>Consulta por Código de Barra</h2>
+    <div id="scanner"></div>
+    <div id="scanResult"></div>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Tienda de Ropa
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
