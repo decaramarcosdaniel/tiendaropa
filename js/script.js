@@ -1,4 +1,4 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbySzgSkptuteAnc5gwfrSG8Ty3f8xdVd4Q-ElwRwhHqZW5XC3wNJiNVxXhEwKH88y1DrA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzxGHyjPuKTjV0235CxPVRnTZZH41kP5khQfPhi0NZtSlrst00RMW3IJCdx5LcQsr7pGA/exec';
 
 document.getElementById("showTable").onclick = loadTable;
 document.getElementById("showForm").onclick = () => {

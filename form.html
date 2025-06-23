@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Producto</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+<header class="header">
+  <div class="logo">TIENDA ROPA</div>
+  <nav class="menu">
+    <a href="index.html">Productos</a>
+    <a href="form.html">Agregar</a>
+    <a href="consulta.html">Consulta</a>
+  </nav>
+</header>
+<main>
+  <h2>Agregar Producto</h2>
+  <form id="productForm">
+    <div class="input-group">
+      <input type="text" name="CodigoBarra" placeholder="Código de Barra" required>
+      <button type="button" id="startFormScan" class="scan-btn"><i class="bi bi-upc-scan"></i></button>
+    </div>
+    <div id="scannerForm"></div>
+    <input type="text" name="Nombre" placeholder="Nombre" required>
+    <input type="text" name="Tipo" placeholder="Tipo" required>
+    <input type="text" name="Talle" placeholder="Talle" required>
+    <input type="number" name="Precio" placeholder="Precio" required>
+    <input type="text" name="Descripcion" placeholder="Descripción">
+    <input type="number" name="Stock" placeholder="Stock" required>
+    <button type="submit">Guardar</button>
+  </form>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<script src="js/form.js"></script>
+</body>
+</html>

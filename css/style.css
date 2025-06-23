@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: sans-serif;
@@ -13,20 +14,16 @@ body {
   padding: 1rem;
 }
 
-.menu button {
-  background: #000;
-  color: #ff6600;
-  border: none;
+.menu a {
+  color: #000;
+  background: #ff6600;
   padding: 0.5rem 1rem;
   margin: 0 0.25rem;
+  text-decoration: none;
 }
 
 main {
   padding: 1rem;
-}
-
-.hidden {
-  display: none;
 }
 
 .table-container {
@@ -47,13 +44,6 @@ th, td {
 
 th {
   background: #ff6600;
-}
-
-button.edit, button.delete {
-  background: none;
-  border: none;
-  color: #ff6600;
-  cursor: pointer;
 }
 
 form {
@@ -88,17 +78,11 @@ form button {
   color: #000;
 }
 
-#scannerForm {
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  border: 2px solid #ff6600;
-}
-
-.large-scanner {
+#scannerForm, #scanner {
+  display: none;
   width: 100%;
   max-width: 600px;
   height: 300px;
-  margin: 0 auto;
-  border: 2px solid #ff6600;
+  margin: 1rem auto;
+ 
 }
