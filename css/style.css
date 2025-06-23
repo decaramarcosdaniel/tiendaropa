@@ -29,10 +29,15 @@ main {
   display: none;
 }
 
+.table-container {
+  overflow-x: auto;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   background: #111;
+  min-width: 600px;
 }
 
 th, td {
@@ -65,6 +70,13 @@ form input, form button {
 form button {
   background: #ff6600;
   color: #000;
+}
+
+#scanner, #scannerForm {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  border: 2px solid #ff6600;
 }
 
 @media (min-width: 768px) {

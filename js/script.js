@@ -1,7 +1,10 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbzKAXK8Bn4QLViBiv2gIwQmnJPc4NZp189enG2VVM-AmmVMQE_7TuDVfoQTZsZTKhEj6Q/exec';
 
 document.getElementById("showTable").onclick = loadTable;
-document.getElementById("showForm").onclick = () => showSection('formSection');
+document.getElementById("showForm").onclick = () => {
+  showSection('formSection');
+  startFormScanner();
+};
 document.getElementById("showScan").onclick = startScanner;
 
 document.getElementById("productForm").onsubmit = async (e) => {
@@ -52,15 +55,37 @@ function editProduct(code) {
 function showSection(id) {
   document.querySelectorAll('main section').forEach(s => s.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
+  Quagga.stop();
 }
 
 function startScanner() {
   showSection('scanSection');
+  startQuagga('#scanner', (code) => {
+    fetch(`${API_URL}?action=list`)
+      .then(res => res.json())
+      .then(products => {
+        const found = products.find(p => p.CodigoBarra === code);
+        if (found) {
+          document.getElementById("scanResult").innerText = JSON.stringify(found, null, 2);
+        } else {
+          document.getElementById("scanResult").innerText = "Producto no encontrado";
+        }
+      });
+  });
+}
+
+function startFormScanner() {
+  startQuagga('#scannerForm', (code) => {
+    document.querySelector('[name=CodigoBarra]').value = code;
+  });
+}
+
+function startQuagga(targetSelector, onDetected) {
   Quagga.init({
     inputStream : {
       name : "Live",
       type : "LiveStream",
-      target: document.querySelector('#scanner')
+      target: document.querySelector(targetSelector)
     },
     decoder : {
       readers : ["ean_reader"]
@@ -68,21 +93,25 @@ function startScanner() {
   }, function(err) {
       if (err) {
           console.log(err);
+          alert("Error al iniciar el lector: " + err);
           return;
       }
       Quagga.start();
   });
 
-  Quagga.onDetected(async function(data) {
-    const code = data.codeResult.code;
-    Quagga.stop();
-    const res = await fetch(`${API_URL}?action=list`);
-    const products = await res.json();
-    const found = products.find(p => p.CodigoBarra === code);
-    if (found) {
-      document.getElementById("scanResult").innerText = JSON.stringify(found, null, 2);
-    } else {
-      document.getElementById("scanResult").innerText = "Producto no encontrado";
+  let detected = false;
+  Quagga.onDetected(function(data) {
+    if (!detected) {
+      detected = true;
+      Quagga.stop();
+      onDetected(data.codeResult.code);
     }
   });
+
+  setTimeout(() => {
+    if (!detected) {
+      Quagga.stop();
+      alert("No se pudo leer el código. Intenta de nuevo.");
+    }
+  }, 8000);
 }
