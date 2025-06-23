@@ -36,7 +36,10 @@
   <section id="formSection" class="hidden">
     <h2>Agregar / Editar Producto</h2>
     <form id="productForm">
-      <input type="text" name="CodigoBarra" placeholder="Código de Barra" required />
+      <div class="input-group">
+        <input type="text" name="CodigoBarra" placeholder="Código de Barra" required />
+        <button type="button" id="startFormScan" class="scan-btn"><i class="bi bi-upc-scan"></i></button>
+      </div>
       <div id="scannerForm"></div>
       <input type="text" name="Nombre" placeholder="Nombre" required />
       <input type="text" name="Tipo" placeholder="Tipo" required />
@@ -45,12 +48,13 @@
       <input type="text" name="Descripcion" placeholder="Descripción" />
       <input type="number" name="Stock" placeholder="Stock" required />
       <button type="submit">Guardar</button>
+      <div id="saveMsg" class="hidden">✅ Producto guardado</div>
     </form>
   </section>
 
   <section id="scanSection" class="hidden">
     <h2>Consulta por Código de Barra</h2>
-    <div id="scanner"></div>
+    <div id="scanner" class="large-scanner"></div>
     <div id="scanResult"></div>
   </section>
 </main>

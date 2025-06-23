@@ -1,11 +1,13 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbzKAXK8Bn4QLViBiv2gIwQmnJPc4NZp189enG2VVM-AmmVMQE_7TuDVfoQTZsZTKhEj6Q/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbySzgSkptuteAnc5gwfrSG8Ty3f8xdVd4Q-ElwRwhHqZW5XC3wNJiNVxXhEwKH88y1DrA/exec';
 
 document.getElementById("showTable").onclick = loadTable;
 document.getElementById("showForm").onclick = () => {
   showSection('formSection');
-  startFormScanner();
 };
 document.getElementById("showScan").onclick = startScanner;
+document.getElementById("startFormScan").onclick = () => {
+  startFormScanner();
+};
 
 document.getElementById("productForm").onsubmit = async (e) => {
   e.preventDefault();
@@ -13,6 +15,10 @@ document.getElementById("productForm").onsubmit = async (e) => {
   const data = new URLSearchParams(new FormData(form)).toString();
   await fetch(`${API_URL}?action=add&${data}`);
   form.reset();
+  document.getElementById("saveMsg").classList.remove("hidden");
+  setTimeout(() => {
+    document.getElementById("saveMsg").classList.add("hidden");
+  }, 3000);
   loadTable();
 };
 
@@ -81,18 +87,30 @@ function startFormScanner() {
 }
 
 function startQuagga(targetSelector, onDetected) {
+  const targetEl = document.querySelector(targetSelector);
+  if (!targetEl) {
+    alert("No se encontró el contenedor del lector");
+    return;
+  }
+
+  Quagga.stop();
+
   Quagga.init({
     inputStream : {
       name : "Live",
       type : "LiveStream",
-      target: document.querySelector(targetSelector)
+      target: targetEl,
+      constraints: {
+        facingMode: "environment"
+      }
     },
     decoder : {
-      readers : ["ean_reader"]
-    }
+      readers : ["ean_reader", "code_128_reader"]
+    },
+    locate: true
   }, function(err) {
       if (err) {
-          console.log(err);
+          console.error("Error al iniciar Quagga: ", err);
           alert("Error al iniciar el lector: " + err);
           return;
       }
@@ -113,5 +131,5 @@ function startQuagga(targetSelector, onDetected) {
       Quagga.stop();
       alert("No se pudo leer el código. Intenta de nuevo.");
     }
-  }, 8000);
+  }, 10000);
 }
